@@ -1,0 +1,63 @@
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+
+struct Node {
+    int data;
+    struct Node* left;
+    struct Node* right;
+};
+
+
+struct Node* newNode(int x) {
+    struct Node* node = (struct Node*)malloc(sizeof(struct Node));
+    node->data = x;
+    node->left = NULL;
+    node->right = NULL;
+    return node;
+}
+
+int max (int a, int b) {
+  	return a > b ? a : b;
+} 
+
+int diameterRecur(struct Node* root, int* res) {
+
+    
+    if (root == NULL)
+        return 0;
+
+    
+    int lHeight = diameterRecur(root->left, res);
+    int rHeight = diameterRecur(root->right, res);
+
+    
+    *res = max(*res , lHeight + rHeight);
+
+    return 1 + max(lHeight, rHeight);
+}
+
+
+int diameter(struct Node* root) {
+
+    int res = 0;
+    diameterRecur(root, &res);
+    return res;
+}
+
+int main() {
+
+    
+    struct Node* root = newNode(5);
+    root->left = newNode(8);
+    root->right = newNode(6);
+    root->left->left = newNode(3);
+    root->left->right = newNode(7);
+    root->right->left = newNode(9);
+
+    printf("%d\n", diameter(root));
+
+    return 0;
+}

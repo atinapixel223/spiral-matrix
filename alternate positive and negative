@@ -1,0 +1,38 @@
+class Solution:
+    def rearrange(self,arr):
+        # code here
+        n = len(arr)
+        pos = []
+        neg = []
+        
+        for i in arr:
+            if i >= 0:
+                pos.append(i)
+            else:
+                neg.append(i)
+        
+        p = 0
+        g = 0
+        index = 0
+        
+        while p < len(pos) and g < len(neg):
+            if index % 2 == 0:
+                arr[index] = pos[p]
+                index += 1
+                p += 1
+            else:
+                arr[index] = neg[g]
+                index += 1
+                g += 1
+        
+        while p < len(pos):
+            arr[index] = pos[p]
+            index += 1
+            p += 1
+        
+        while g < len(neg):
+            arr[index] = neg[g]
+            index += 1
+            g += 1
+        
+        return arr
